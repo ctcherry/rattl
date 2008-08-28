@@ -24,7 +24,7 @@ class TemplateTest < Test::Unit::TestCase
 	private
 	
 		def template_variables
-			{ :content => "Cool test replacement content", :author_name => "Chris Cherry"}
+			{ :content => "Cool test replacement content", :author_name => "Chris Cherry", :show_user_data => true}
 		end
 	
 		def template_source
@@ -34,6 +34,9 @@ class TemplateTest < Test::Unit::TestCase
 				<div rattl_replace_content="content">Default sample content</div>
 				<div>
 					<p>Hello my name is <span rattl_replace_tag="author_name">John Smith</span></p>
+				</div>
+				<div rattl_if="show_user_data">
+					<span>Chris Cherry ctcherry@gmail.com</span>
 				</div>
 			</body>
 			</html>
@@ -47,6 +50,9 @@ class TemplateTest < Test::Unit::TestCase
 				<div>Cool test replacement content</div>
 				<div>
 					<p>Hello my name is Chris Cherry</p>
+				</div>
+				<div>
+					<span>Chris Cherry ctcherry@gmail.com</span>
 				</div>
 			</body>
 			</html>
