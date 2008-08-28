@@ -43,6 +43,16 @@ class IfTest < Test::Unit::TestCase
 		assert !result.include?('rattl_if="show_user_data"')
 	end
 	
+	def test_should_remove_trigger_attribute_on_clean
+		assert template_source.include?('<div rattl_if="show_user_data">')
+		
+		action_class.new(hdoc, {:show_user_data => true}).clean
+		result = hdoc.to_html
+		
+		assert result.include?('<div>')
+		assert !result.include?('rattl_if="show_user_data"')
+	end
+	
 	private
 	
 		def template_source

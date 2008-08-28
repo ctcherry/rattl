@@ -7,6 +7,7 @@ module Rattl
 		
 		def initialize(source)
 			@source = source
+			@variables = {}
 		end
 		
 		def render(hash = {})
@@ -17,6 +18,7 @@ module Rattl
 		
 		def clean
 			parse(:clean)
+			hdoc.to_html
 		end
 		
 		private

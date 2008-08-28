@@ -18,7 +18,14 @@ class TemplateTest < Test::Unit::TestCase
 		@template = Rattl::Template.new(template_source)
 		
 		result = @template.render(template_variables)
-		assert_equal template_expected, result
+		assert_equal template_expected_processed, result
+	end
+	
+	def test_should_render_cleaned
+		@template = Rattl::Template.new(template_source)
+		
+		result = @template.clean
+		assert_equal template_expected_cleaned, result
 	end
 	
 	private
@@ -43,13 +50,29 @@ class TemplateTest < Test::Unit::TestCase
 			HTML
 		end
 		
-		def template_expected
+		def template_expected_processed
 			<<-HTML
 			<html>
 			<body>
 				<div>Cool test replacement content</div>
 				<div>
 					<p>Hello my name is Chris Cherry</p>
+				</div>
+				<div>
+					<span>Chris Cherry ctcherry@gmail.com</span>
+				</div>
+			</body>
+			</html>
+			HTML
+		end
+		
+		def template_expected_cleaned
+			<<-HTML
+			<html>
+			<body>
+				<div>Default sample content</div>
+				<div>
+					<p>Hello my name is John Smith</p>
 				</div>
 				<div>
 					<span>Chris Cherry ctcherry@gmail.com</span>
