@@ -31,7 +31,7 @@ class TemplateTest < Test::Unit::TestCase
 	private
 	
 		def template_variables
-			{ :content => "Cool test replacement content", :author_name => "Chris Cherry", :show_user_data => true}
+			{ :content => "Cool test replacement content", :author_name => "Chris Cherry", :show_user_data => true, :link_url => 'http://yahoo.com'}
 		end
 	
 		def template_source
@@ -45,6 +45,7 @@ class TemplateTest < Test::Unit::TestCase
 				<div rattl_if="show_user_data">
 					<span>Chris Cherry ctcherry@gmail.com</span>
 				</div>
+				<a rattl_replace_attr="href=link_url" href="http://google.com">Search Engine</a>
 			</body>
 			</html>
 			HTML
@@ -61,6 +62,7 @@ class TemplateTest < Test::Unit::TestCase
 				<div>
 					<span>Chris Cherry ctcherry@gmail.com</span>
 				</div>
+				<a href="http://yahoo.com">Search Engine</a>
 			</body>
 			</html>
 			HTML
@@ -77,6 +79,7 @@ class TemplateTest < Test::Unit::TestCase
 				<div>
 					<span>Chris Cherry ctcherry@gmail.com</span>
 				</div>
+				<a href="http://google.com">Search Engine</a>
 			</body>
 			</html>
 			HTML
