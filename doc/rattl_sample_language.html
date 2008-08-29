@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>untitled</title>	
+</head>
+<body>
+
+<div rattl_if="use_header" id="header">
+    <h1>My Site</h1>
+    <img rattl_replace_attr="src=header_image" src="/img/sample/my_header">
+</div>
+
+<!-- -->
+
+<div rattl_repeat_for="houses:house" class="house_list">
+    <img rattl_replace_attr="src=house.image_path" src="/img/samples/house.jpg">
+    <p rattl_replace_content="house.description">This is an awesome property!</p>
+    <p>This house is a part of the <span rattl_replace_content="development_name">Cool</span> development</p>
+
+</div>
+
+<!-- -->
+
+<!--
+variables[:houses][0][:image_path]
+variables[:houses][0][:description]
+
+variables[:houses][1][:image_path]
+variables[:houses][1][:description]
+
+house.image_path
+
+-->
+
+
+</body>
+</html>
