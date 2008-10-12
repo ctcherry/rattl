@@ -3,8 +3,8 @@ module Rattl::Actions
 	
 		def process
 			each_element do |element|
-				var_name = element.attributes[trigger_attribute].to_sym
-				if !!template_variables[var_name]
+				var_name = element.attributes[trigger_attribute]
+				if !!variable_store.get(var_name)
 					element.remove_attribute(trigger_attribute)
 				else
 					element.swap('')

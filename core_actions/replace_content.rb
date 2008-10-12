@@ -1,10 +1,10 @@
 module Rattl::Actions
-	class ReplaceTag < Base
+	class ReplaceContent < Base
 	
 		def process
 			each_element do |element|
-				var_name = element.attributes[trigger_attribute].to_sym
-				element.swap(template_variables[var_name])
+				var_name = element.attributes[trigger_attribute]
+				element.inner_html = variable_store.get(var_name)
 				element.remove_attribute(trigger_attribute)
 			end
 			hdoc
@@ -12,7 +12,7 @@ module Rattl::Actions
 	
 		def clean
 			each_element do |element|
-				element.swap(element.inner_html)
+				element.remove_attribute(trigger_attribute)
 			end
 			hdoc
 		end
@@ -26,10 +26,10 @@ module Rattl::Actions
 		private
 		
 			def trigger_attribute
-				'rattl_replace_tag'
+				'rattl_replace_content'
 			end
 
 	end
 end
 
-Rattl::ActionStore.register_action(Rattl::Actions::ReplaceTag)
+Rattl::ActionStore.register_action(Rattl::Actions::ReplaceContent)

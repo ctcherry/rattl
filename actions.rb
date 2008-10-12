@@ -4,11 +4,11 @@ module Rattl
 		class Base
 			
 			attr_reader :hdoc
-			attr_reader :template_variables
+			attr_reader :variable_store
 			
-			def initialize(hdoc, template_hash)
+			def initialize(hdoc, variable_hash)
 				@hdoc = hdoc
-				@template_variables = template_hash
+				@variable_store = VariableStore.new(variable_hash)
 			end
 			
 			def process
@@ -24,5 +24,13 @@ module Rattl
 	end
 end
 
-# Require all action files
-Dir[File.join(File.dirname(__FILE__), "actions/*.rb")].each { |f| require f }
+# Require core_action files in order of operation
+
+require 'core_actions/for'
+require 'core_actions/if'
+require 'core_actions/replace_tag'
+require 'core_actions/replace_content'
+require 'core_actions/replace_attribute'
+
+# Require all other extra_action files
+Dir[File.join(File.dirname(__FILE__), "extra_actions/*.rb")].each { |f| require f }

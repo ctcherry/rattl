@@ -4,8 +4,10 @@ require 'hpricot'
 $: << File.expand_path(File.dirname(__FILE__))
 
 require 'template'
+require 'variable_store'
 require 'action_store'
 require 'actions'
+
 
 module Rattl; end
 

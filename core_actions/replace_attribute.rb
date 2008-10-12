@@ -1,10 +1,12 @@
 module Rattl::Actions
-	class ReplaceContent < Base
+	class ReplaceAttribute < Base
 	
 		def process
 			each_element do |element|
-				var_name = element.attributes[trigger_attribute].to_sym
-				element.inner_html = template_variables[var_name]
+				trigger_attr_value = element.attributes[trigger_attribute]
+				target_attribute, var_name = trigger_attr_value.split('=')
+				
+				element.raw_attributes[target_attribute] = variable_store.get(var_name) || ''
 				element.remove_attribute(trigger_attribute)
 			end
 			hdoc
@@ -26,10 +28,10 @@ module Rattl::Actions
 		private
 		
 			def trigger_attribute
-				'rattl_replace_content'
+				'rattl_replace_attr'
 			end
 
 	end
 end
 
-Rattl::ActionStore.register_action(Rattl::Actions::ReplaceContent)
+Rattl::ActionStore.register_action(Rattl::Actions::ReplaceAttribute)
