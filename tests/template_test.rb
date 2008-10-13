@@ -48,6 +48,7 @@ class TemplateTest < Test::Unit::TestCase
 				<ul>
 					<li rattl_for="items:item" rattl_replace_content="item.name">Item</li>
 				</ul>
+				<div rattl_remove_tag>Removed!</div>
 				<a rattl_replace_attr="href=link_url" href="http://google.com">Search Engine</a>
 			</body>
 			</html>
@@ -69,6 +70,7 @@ class TemplateTest < Test::Unit::TestCase
 					<li>Item1</li>
 <li>Item2</li>
 				</ul>
+				
 				<a href="http://yahoo.com">Search Engine</a>
 			</body>
 			</html>
@@ -89,6 +91,7 @@ class TemplateTest < Test::Unit::TestCase
 				<ul>
 					<li>Item</li>
 				</ul>
+				<div>Removed!</div>
 				<a href="http://google.com">Search Engine</a>
 			</body>
 			</html>

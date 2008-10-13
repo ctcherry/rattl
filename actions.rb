@@ -27,6 +27,7 @@ end
 # Require core_action files in order of operation
 
 require 'core_actions/for'
+require 'core_actions/remove_tag'
 require 'core_actions/if'
 require 'core_actions/replace_tag'
 require 'core_actions/replace_content'
