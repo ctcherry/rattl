@@ -1,4 +1,4 @@
-require 'rattl_test_helper'
+require File.dirname(__FILE__) + '/rattl_test_helper'
 
 class TemplateTest < Test::Unit::TestCase
 	

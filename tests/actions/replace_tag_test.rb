@@ -1,9 +1,7 @@
-require '../rattl_test_helper'
+require File.dirname(__FILE__) + '/../rattl_test_helper'
 
-class ReplaceContentTest < Test::Unit::TestCase
-	
-	attr_reader :action_class, :hdoc
-	
+class ReplaceTagTest < Test::Unit::TestCase
+
 	def setup
 		@action_class = Rattl::Actions::ReplaceTag
 		@hdoc = Hpricot(template_source)
@@ -13,8 +11,8 @@ class ReplaceContentTest < Test::Unit::TestCase
 		assert template_source.include?('<span rattl_replace_tag="testvar">John Smith</spa')
 		assert !template_source.include?('Chris Cherry')
 		
-		action_class.new(hdoc, {:testvar => 'Chris Cherry'}).process
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:testvar => 'Chris Cherry'}).process
+		result = @hdoc.to_html
 		
 		assert result.include?('Chris Cherry')
 	end
@@ -22,8 +20,8 @@ class ReplaceContentTest < Test::Unit::TestCase
 	def test_should_remove_trigger_attribute_on_process
 		assert template_source.include?('rattl_replace_tag="testvar"')
 		
-		action_class.new(hdoc, {:testvar => 'Chris Cherry'}).process
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:testvar => 'Chris Cherry'}).process
+		result = @hdoc.to_html
 		
 		assert !result.include?('rattl_replace_tag="testvar"')
 	end
@@ -31,8 +29,8 @@ class ReplaceContentTest < Test::Unit::TestCase
 	def test_should_remove_tag_and_leave_sample_content_on_clean
 		assert template_source.include?('<div>Hello my name is <span rattl_replace_tag="testvar">John Smith</span></div>')
 		
-		action_class.new(hdoc, {:testvar => 'Chris Cherry'}).clean
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:testvar => 'Chris Cherry'}).clean
+		result = @hdoc.to_html
 		
 		assert result.include?('<div>Hello my name is John Smith</div>')
 	end

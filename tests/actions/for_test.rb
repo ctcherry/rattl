@@ -1,8 +1,6 @@
-require '../rattl_test_helper'
+require File.dirname(__FILE__) + '/../rattl_test_helper'
 
 class ForTest < Test::Unit::TestCase
-	
-	attr_reader :action_class, :hdoc
 	
 	def setup
 		@action_class = Rattl::Actions::For
@@ -14,7 +12,7 @@ class ForTest < Test::Unit::TestCase
 		assert !template_source.include?('<li>Menu1</li>')
 		assert !template_source.include?('<li>Menu2</li>')
 		
-		action_class.new(@hdoc, items_hash).process
+		@action_class.new(@hdoc, items_hash).process
 		result = @hdoc.to_html
 
 		assert result.include?('<li title="My Title">Menu Item: Menu1</li>')
@@ -25,9 +23,9 @@ class ForTest < Test::Unit::TestCase
 		assert template_source_nested.include?('<div rattl_for="authors:author">')
 		assert template_source_nested.include?('<li rattl_for="author.books:book" rattl_replace_content="book.title">Some Book</li>')
 		
-		hdoc = Hpricot(template_source_nested)
-		action_class.new(hdoc, items_hash).process
-		result = hdoc.to_html
+		@hdoc = Hpricot(template_source_nested)
+		@action_class.new(@hdoc, items_hash).process
+		result = @hdoc.to_html
 
 		assert result.include?('<p>Chris</p>')
 		assert result.include?('<li>Book1</li>')
@@ -40,8 +38,8 @@ class ForTest < Test::Unit::TestCase
 	def test_should_remove_trigger_attribute_on_clean
 		assert template_source.include?('<li rattl_for="items:item" rattl_replace_attr="title=title">Menu Item: <span rattl_replace_tag="item.name">First Item</span></li>')
 		
-		action_class.new(hdoc, {}).clean
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {}).clean
+		result = @hdoc.to_html
 		
 		assert result.include?('<li rattl_replace_attr="title=title">Menu Item: <span rattl_replace_tag="item.name">First Item</span></li>')
 		assert !result.include?('rattl_for=')

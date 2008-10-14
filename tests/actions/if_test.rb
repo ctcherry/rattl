@@ -1,8 +1,6 @@
-require '../rattl_test_helper'
+require File.dirname(__FILE__) + '/../rattl_test_helper'
 
 class IfTest < Test::Unit::TestCase
-	
-	attr_reader :action_class, :hdoc
 	
 	def setup
 		@action_class = Rattl::Actions::If
@@ -14,8 +12,8 @@ class IfTest < Test::Unit::TestCase
 		assert template_source.include?('Chris')
 		assert template_source.include?('ctcherry@gmail.com')
 		
-		action_class.new(hdoc, {:show_user_data => false}).process
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:show_user_data => false}).process
+		result = @hdoc.to_html
 		
 		assert !result.include?('<div rattl_if="show_user_data">')
 		assert !result.include?('Chris')
@@ -26,8 +24,8 @@ class IfTest < Test::Unit::TestCase
 		assert template_source.include?('Chris')
 		assert template_source.include?('ctcherry@gmail.com')
 		
-		action_class.new(hdoc, {:show_user_data => true}).process
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:show_user_data => true}).process
+		result = @hdoc.to_html
 		
 		assert result.include?('Chris')
 		assert result.include?('ctcherry@gmail.com')
@@ -36,8 +34,8 @@ class IfTest < Test::Unit::TestCase
 	def test_should_remove_trigger_attribute_if_keeping_tag
 		assert template_source.include?('<div rattl_if="show_user_data">')
 		
-		action_class.new(hdoc, {:show_user_data => true}).process
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:show_user_data => true}).process
+		result = @hdoc.to_html
 		
 		assert result.include?('<div>')
 		assert !result.include?('rattl_if="show_user_data"')
@@ -46,8 +44,8 @@ class IfTest < Test::Unit::TestCase
 	def test_should_remove_trigger_attribute_on_clean
 		assert template_source.include?('<div rattl_if="show_user_data">')
 		
-		action_class.new(hdoc, {:show_user_data => true}).clean
-		result = hdoc.to_html
+		@action_class.new(@hdoc, {:show_user_data => true}).clean
+		result = @hdoc.to_html
 		
 		assert result.include?('<div>')
 		assert !result.include?('rattl_if="show_user_data"')
