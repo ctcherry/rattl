@@ -3,12 +3,11 @@ module Rattl
 	class ActionStore
 		
 		def self.available_actions
-			@actions
+			@actions ||= []
 		end
 
 		def self.register_action(klass)
-			@actions = [] if @actions.nil?
-			@actions << klass unless @actions.include? klass
+			self.available_actions << klass unless self.available_actions.include? klass
 		end
 		
 	end
